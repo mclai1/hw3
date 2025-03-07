@@ -70,7 +70,6 @@ void dealloc(Node* head)
 
 
 
-
 int main(int argc, char* argv[])
 {
     if(argc < 2) {
@@ -85,10 +84,27 @@ int main(int argc, char* argv[])
     cout << "Original list: ";
     print(head);
 
-    // Test out your linked list code
+    // Test out llfilter
+    struct isOdd {
+        bool operator()(int value) {
+            return value % 2 == 1;
+        }
+    };
+    Node* filtered = llfilter(head, isOdd());
+    cout << "Filtered list: ";
+    print(filtered);
 
+    // Test out llpivot
+    Node* smaller = nullptr, *larger = nullptr;
+    llpivot(filtered, smaller, larger, 8);
+    cout << "Smaller list: ";
+    print(smaller);
+    cout << "Larger list: ";
+    print(larger);
 
-
+    // deallocate smaller and larger lists
+    dealloc(smaller);
+    dealloc(larger);
     
     return 0;
 
